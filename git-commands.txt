@@ -1,0 +1,7 @@
+git add .
+git commit -m "message"
+git push -u origin branch
+
+
+if other person had changed
+git pull branch
