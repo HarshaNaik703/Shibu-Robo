@@ -1,0 +1,9 @@
+pyttsx3
+SpeechRecognition
+google-generativeai
+requests
+pyserial
+luma.oled
+python-dotenv
+pandas
+Pillow
