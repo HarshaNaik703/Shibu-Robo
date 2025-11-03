@@ -1,5 +1,9 @@
 import speech_recognition as sr
 
-print("🎤 Available microphones:")
-for i, name in enumerate(sr.Microphone.list_microphone_names()):
-    print(f"[{i}] {name}")
+mics = sr.Microphone.list_microphone_names()
+if not mics:
+    print("❌ No microphones detected by Python.")
+else:
+    print("✅ Detected microphones:")
+    for i, name in enumerate(mics):
+        print(f"{i}: {name}")
