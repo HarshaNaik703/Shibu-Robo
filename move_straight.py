@@ -24,16 +24,21 @@ time.sleep(2)  # wait for serial to stabilize
 print("🤖 Shibu connected to Arduino Mega over GPIO UART")
 print("Use Ctrl+C to stop\n")
 
+DEFAULT_DURATION = 5.0  # seconds
+
 try:
     while True:
-        # Ask duration from user
-        duration = input("Enter move time in seconds (e.g., 5): ")
+        # Ask duration from user (default = 5 seconds)
+        duration = input(f"Enter move time in seconds (default {DEFAULT_DURATION}): ").strip()
 
-        try:
-            duration = float(duration)
-        except ValueError:
-            print("⚠️ Invalid input, please enter a number.\n")
-            continue
+        if duration == "":
+            duration = DEFAULT_DURATION
+        else:
+            try:
+                duration = float(duration)
+            except ValueError:
+                print("⚠️ Invalid input, using default 5 seconds.\n")
+                duration = DEFAULT_DURATION
 
         # Construct command for Arduino
         cmd = f"<0,{duration}s>\n"
@@ -43,7 +48,7 @@ try:
         # Wait for Arduino reply
         start = time.time()
         reply = ""
-        while time.time() - start < duration + 5:  # wait a bit longer than move duration
+        while time.time() - start < duration + 5:  # wait slightly longer
             if ser.in_waiting:
                 reply = ser.readline().decode(errors="ignore").strip()
                 if reply:
