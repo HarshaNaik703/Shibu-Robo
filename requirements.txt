@@ -7,3 +7,4 @@ luma.oled
 python-dotenv
 pandas
 Pillow
+llama-cpp-python
